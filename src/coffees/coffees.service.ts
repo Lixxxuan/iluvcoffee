@@ -46,11 +46,14 @@ export class CoffeesService {
     return coffee;
     }
 
-    create(createCoffeeDto:CreateCoffeeDto)
+    async create(createCoffeeDto:CreateCoffeeDto)
     {
         //this.coffees.push(createCoffeeDto);
         //return createCoffeeDto;//old
 
+        const flavor = await Promise.all(
+            createCoffeeDto.flavors.map(name => this.preloadFlavorByname(name)),
+        );
         const coffee = this.coffeeRepository.create(createCoffeeDto);
         return this.coffeeRepository.save(coffee);
 
