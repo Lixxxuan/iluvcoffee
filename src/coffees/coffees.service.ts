@@ -46,7 +46,7 @@ export class CoffeesService {
     return coffee;
     }
 
-    create(createCoffeeDto:CreateCoffeeDto)
+    async create(createCoffeeDto:CreateCoffeeDto)
     {
         //this.coffees.push(createCoffeeDto);
         //return createCoffeeDto;//old
