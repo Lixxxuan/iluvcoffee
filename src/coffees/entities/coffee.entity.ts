@@ -16,6 +16,6 @@ export class Coffee{
     @ManyToMany(type =>Flavor,flavor=>flavor.coffee,{
         cascade:true,//insert 级联插入
     })
-    flavors:string[];
+    flavors:Flavor[];
     
 }
