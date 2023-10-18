@@ -12,6 +12,9 @@ export class Coffee{
     @Column()
     brand:string;
 
+    @Column({default:0})
+    recommendations:number;
+
     @JoinTable()
     @ManyToMany(type =>Flavor,flavor=>flavor.coffee,{
         cascade:true,//insert 级联插入

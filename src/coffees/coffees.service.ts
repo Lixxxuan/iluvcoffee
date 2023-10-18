@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { Coffee } from './entities/coffee.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, StrictMatchKeysAndValues } from 'typeorm';
+import { Connection, DataSource, Repository, StrictMatchKeysAndValues } from 'typeorm';
 import { CreateCoffeeDto } from './dto/create-coffee.dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
 import { relative } from 'path';
@@ -24,7 +24,8 @@ export class CoffeesService {
         @InjectRepository(Coffee)
         private readonly coffeeRepository:Repository<Coffee>,
         @InjectRepository(Flavor)
-        private readonly flavorRepository:Repository<Flavor>
+        private readonly flavorRepository:Repository<Flavor>,
+        private readonly connection:DataSource,
     ){}
 
     findAll(paginationQuery:PaginationQueryDto){
@@ -93,6 +94,13 @@ export class CoffeesService {
         }*/
         const coffee = await this.findOne(id);
         return this.coffeeRepository.remove(coffee);
+    }
+
+    async recommendCoffee(coffee:Coffee){
+        const queryRunner = this.connection.createQueryRunner();
+
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
     }
 
     private async preloadFlavorByname(name:string):Promise<Flavor>
