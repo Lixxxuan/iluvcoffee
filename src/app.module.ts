@@ -6,6 +6,7 @@ import { CoffeesService } from './coffees/coffees.service';
 import { CoffeesModule } from './coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [CoffeesModule,TypeOrmModule.forRoot(
@@ -20,7 +21,7 @@ import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
     synchronize: true,
 }
 
-  ), CoffeeRatingModule],
+  ), CoffeeRatingModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService],//原本此行及上一行有CoffeesController and CoffeesService 但是由于以防实例化两次的问题，已经迁移到coffees.module.ts
 })
