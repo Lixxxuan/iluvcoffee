@@ -7,16 +7,27 @@ import { CoffeesModule } from './coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 import { DatabaseModule } from './database/database.module';
-
+import { config } from 'process';
+import{ConfigModule} from '@nestjs/config'
+import *as Joi from '@hapi/joi'
 @Module({
-  imports: [CoffeesModule,TypeOrmModule.forRoot(
+  imports: [
+    ConfigModule.forRoot(
+      {validationSchema:Joi.object({
+        DATABASE_HOST:Joi.required(),
+        DATABASE_PORT:Joi.number().default(5432),
+      })
+      }
+    ),
+    CoffeesModule,
+    TypeOrmModule.forRoot(
     {    
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: '123456',
-    database: 'lixuandb',
+    host: process.env.DATABASE_HOST,
+    port: +process.env.DATABASE_PORT,
+    username: process.env.DATABASE_USER,
+    password: process.env.PASSWORD,
+    database: process.env.NAME,
     autoLoadEntities: true,
     synchronize: true,
 }
