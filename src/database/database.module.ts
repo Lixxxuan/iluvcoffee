@@ -4,7 +4,7 @@ import { ConnectionOptions } from 'tls';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 @Module({
-        providers:[{
+        /* providers:[{
             provide:'CONNECTION',
             useValue:new DataSource({
                 type: 'postgres',
@@ -12,7 +12,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
                 port: 5432,
             }),
             
-        }],
+        }], */
 
 })
 export class DatabaseModule {
