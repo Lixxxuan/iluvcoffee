@@ -8,15 +8,13 @@ import { COFFEE_BARNDS } from './coffees.constants';
 @Injectable()
 export class CoffeeBrandFactory{
     create(){
-
-
         return ['buddy brew','nescafe'];
     }
 }
 @Module({
     imports:[TypeOrmModule.forFeature([Coffee,Flavor,Event])],
     controllers:[CoffeesController],
-    providers:[CoffeesService,
+    providers:[CoffeesService,CoffeeBrandFactory,
         /*{
             provide: ConfigService,
             useClass:process.env.NODE_ENV === 'development'?DevelopmentConfigService:ProductionConfigService
