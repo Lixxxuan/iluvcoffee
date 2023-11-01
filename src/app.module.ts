@@ -37,3 +37,4 @@ import *as Joi from '@hapi/joi'
   providers: [AppService],//原本此行及上一行有CoffeesController and CoffeesService 但是由于以防实例化两次的问题，已经迁移到coffees.module.ts
 })
 export class AppModule {}
+console.log(process.env.DATABASE_HOST);
